@@ -47,7 +47,9 @@ int main()
     c3 = c1 + c2;
     c4 = c1 - c2;
     c5 = c1 * c2;
-    cout << " The Addition Operator Result is " << cout << " The Subtraction Operator Result is " << cout << " The Multiplication Operator Result is " <<
+    cout << " The Addition Operator Result is " << c3.real << " + " << c3.imag << " i " << endl;
+    cout << " The Subtraction Operator Result is " << c4.real << " + " << c4.imag << " i " << endl;
+    cout << " The Multipilication Operator Result is " << c5.real << " + " << c5.imag << " i " << endl;
 
-        return 0;
+    return 0;
 }
