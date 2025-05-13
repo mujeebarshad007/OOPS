@@ -1,43 +1,30 @@
 #include <iostream>
 using namespace std;
 class Student
-
 {
+
 private:
-    int *marks;
+    int regno;
     string name;
 
 public:
-    Student(string name, int m[])
+    int x;
+    Student()
     {
-        this->name = name;
-        marks = new int[5];
-        for (int i = 0; i < 5; i++)
-        {
-            marks[i] = m[i];
-        }
-        cout << "Student object created: " << name << endl;
+        cout << "Default Constructor Called" << endl;
     }
-    ~Student()
+    Student(int a, string b)
     {
-        delete marks;
-        cout << "Student object destroyed: " << name << endl;
-    }
-    void display() const
-    {
-        cout << " Student Name :  " << name << endl;
-        cout << " Marks ";
-        for (int i = 0; i < 5; i++)
-        {
-            cout << marks[i] << " ";
-        }
-        cout << endl;
+
+        regno = a;
+        name = b;
     }
 };
+
 int main()
 {
-    int marks[5] = {100, 97, 78, 80, 84};
-    Student s1("Mujeeb", marks);
-    s1.display();
+    Student *s1 = new Student;
+    Student *s2 = new Student(100, "Mujeeb");
+    s2->getData();
     return 0;
 }

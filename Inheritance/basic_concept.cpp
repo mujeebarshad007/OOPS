@@ -20,9 +20,7 @@ public:
         cout << " The Value of the Name is : " << name << endl;
     }
 };
-'
-
-' int main()
+int main()
 {
     Child c;
     c.display();
