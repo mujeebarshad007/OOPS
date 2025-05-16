@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 class BasicTicket
 {
 public:
@@ -8,9 +7,8 @@ public:
     string d_city;
     string a_city;
     int f_number;
-    double t_price;
-
-    BasicTicket(string p, string d, string a, int f, double t)
+    int t_price;
+    BasicTicket(string p, string d, string a, int f, int t)
     {
         p_name = p;
         d_city = d;
@@ -18,34 +16,28 @@ public:
         f_number = f;
         t_price = t;
     }
-
-    double getPrice()
+    int getPrice()
     {
         return t_price;
     }
 };
-
 class PremiumTicket : public BasicTicket
 {
 public:
-    int ps_number;
-
-    PremiumTicket(string p, string d, string a, int f, double t, int ps)
-        : BasicTicket(p, d, a, f, t)
+    int s_number;
+    PremiumTicket(string p, string d, string a, int f, int t, int sn) : BasicTicket(p, d, a, f, t)
     {
-        ps_number = ps;
+        s_number = sn;
     }
-
-    double getPrice()
+    int getPrice()
     {
         return BasicTicket::getPrice() * 1.10;
     }
 };
-
 int main()
 {
-    BasicTicket bt("Ali", "Lahore", "Karachi", 1001, 5000);
-    PremiumTicket pt("Sara", "Islamabad", "Dubai", 2002, 8000, 12);
+    BasicTicket bt("Mujeeb", "Multan", "Islamabad", 1001, 5000);
+    PremiumTicket pt("Yums", "Islamabad", "Multan", 2002, 8000, 12);
 
     cout << "--- Basic Ticket ---" << endl;
     cout << "Passenger: " << bt.p_name << endl;
@@ -53,8 +45,7 @@ int main()
 
     cout << "\n--- Premium Ticket ---" << endl;
     cout << "Passenger: " << pt.p_name << endl;
-    cout << "Seat No: " << pt.ps_number << endl;
+    cout << "Seat No: " << pt.s_number << endl;
     cout << "Price: " << pt.getPrice() << endl;
-
     return 0;
 }
