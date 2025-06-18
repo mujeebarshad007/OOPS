@@ -124,7 +124,7 @@ public:
 
 int main()
 {
-    // one pointer exist in many form plymorphism
+    // one pointer exist in many form polymorphism
     A *obj = new A(1);
     obj->print();
 

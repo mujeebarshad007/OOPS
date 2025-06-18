@@ -1,4 +1,11 @@
+// MUJEEB ARSHAD
+// 04072413034
+// This Project is used to make a smart university system
+// in which we can store students and professors using classes and
+// we can assign course calculate gpa as well also
+
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 class Person
@@ -11,19 +18,20 @@ public:
     Person(string n = "", int i = 0) : name(n), id(i) {}
     virtual ~Person() {}
 
-    int getId() const { return id; } // <-- Added getter for id
+    int getId() const { return id; } // Added getter for id
 };
 
-class User : virtual public Person
+class User : virtual public Person // using virtual to avoid the diamond problem
 {
 protected:
-    static int countuser;
+    static int countuser; // countuser to count total users
 
 public:
     User(string n, int i) : Person(n, i)
     {
         countuser++;
     }
+
     static int getTotalUsers()
     {
         return countuser;
@@ -32,8 +40,8 @@ public:
     virtual void displayInfo() = 0;
     virtual double calculatePerformance() = 0;
 };
-int User::countuser = 0;
 
+int User::countuser = 0;
 class Course
 {
 protected:
@@ -47,14 +55,14 @@ public:
         return coursename == c.coursename;
     }
 
-    string getName() const { return coursename; } // <-- Added getName()
+    string getName() const { return coursename; }
 
     friend ostream &operator<<(ostream &os, Course &c)
     {
         os << c.coursename;
         return os;
     }
-    friend void assignCourse(class Student &, Course &);
+    friend void assignCourse(class Student &, Course &); // telling compiler that here is a friend function
 };
 
 class Student : public User
@@ -64,21 +72,26 @@ private:
     Course *assignedcourse;
 
 public:
-    Student(string name, int id, double g) : User(name, id), gpa(g), assignedcourse(nullptr) {}
+    Student(string name, int id, double g) : Person(name, id), User(name, id), gpa(g), assignedcourse(nullptr) {}
+
     void displayInfo()
     {
-        cout << "Student Name: " << name << ", ID: " << id << ", GPA: " << gpa << endl;
+        cout << "\n--- Student Info ---\n";
+        cout << "Name       : " << name << endl;
+        cout << "ID         : " << id << endl;
+        cout << "GPA        : " << gpa << endl;
         if (assignedcourse)
-        {
-            cout << " Course: " << *assignedcourse;
-            cout << endl;
-        }
+            cout << "Course     : " << assignedcourse->getName() << endl;
+        else
+            cout << "Course     : Not assigned\n";
+        cout << "---------------------\n";
     }
+
     virtual double calculatePerformance()
     {
         return gpa;
     }
-    friend void assignCourse(Student &, Course &);
+    friend void assignCourse(Student &, Course &); // again telling compiler that there is a freind function here
 };
 
 void assignCourse(Student &s, Course &c)
@@ -88,15 +101,20 @@ void assignCourse(Student &s, Course &c)
 
 class Professor : public User
 {
-    string department; // changed from salary and rank to department
+    string department;
 
 public:
-    Professor(string name, int id, string dept) : User(name, id), department(dept) {}
+    Professor(string name, int id, string dept) : Person(name, id), User(name, id), department(dept) {}
 
-    void displayInfo()
+    void displayInfo() override
     {
-        cout << "Professor Name: " << name << ", ID: " << id << ", Department: " << department << endl;
+        cout << "\n--- Professor Info ---\n";
+        cout << "Name       : " << name << endl;
+        cout << "ID         : " << id << endl;
+        cout << "Department : " << department << endl;
+        cout << "------------------------\n";
     }
+
     virtual double calculatePerformance()
     {
         return 0; // you can change this as needed
@@ -125,14 +143,13 @@ float power(float base, int exp)
     else
         return base * half * half;
 }
-
-const int MAX_USERS = 5;
+const int MAX_USERS = 5; // taking sample users
 Student *students[MAX_USERS];
 Professor *professors[MAX_USERS];
 Course courses[MAX_USERS];
 int studentCount = 0, profCount = 0, courseCount = 0;
 
-// ----- GPA Calculator -----
+//  GPA Calculator recursion code
 
 double calculateGPA(double grades[], double credits[], int size)
 {
@@ -145,17 +162,25 @@ double calculateGPA(double grades[], double credits[], int size)
     return (totalCredits == 0) ? 0 : total / totalCredits;
 }
 
-// ----- Main Menu -----
-
 int main()
 {
+    int ex, digits;
+    float bs;
     cout << "Welcome to Smart University Management System\n";
     cout << "---------------------------------------------\n";
 
     int choice;
     do
     {
-        cout << "\n1. Create Student\n2. Create Professor\n3. Assign Course\n4. Calculate GPA\n5. Show User Info\n6. Exit\n";
+        // system("clear");
+        cout << "1. Create Student" << endl;
+        cout << "2. Create Professor" << endl;
+        cout << "3. Assign Course" << endl;
+        cout << "4. Calculate GPA" << endl;
+        cout << "5. Show User Info" << endl;
+        cout << "6. Find Power" << endl;
+        cout << "7. Find Sum of Digits" << endl;
+        cout << "8. Exit" << endl;
         cout << "Enter choice: ";
         cin >> choice;
 
@@ -170,10 +195,11 @@ int main()
             int id;
             double gpa;
             cout << "Enter name: ";
-            cin >> ws;
-            getline(cin, name);
+            cin >> name;
+            cin.ignore();
             cout << "Enter ID: ";
             cin >> id;
+            cin.ignore();
             cout << "Enter GPA: ";
             cin >> gpa;
             students[studentCount++] = new Student(name, id, gpa);
@@ -189,13 +215,12 @@ int main()
             string name, dept;
             int id;
             cout << "Enter name: ";
-            cin >> ws;
-            getline(cin, name);
+            cin >> name;
+            cin.ignore();
             cout << "Enter ID: ";
             cin >> id;
             cout << "Enter Department: ";
-            cin >> ws;
-            getline(cin, dept);
+            cin >> dept;
             professors[profCount++] = new Professor(name, id, dept);
             cout << "Professor created.\n";
         }
@@ -276,14 +301,28 @@ int main()
         }
         else if (choice == 6)
         {
-            cout << "Goodbye!\n";
+            cout << " Enter the base " << endl;
+            cin >> bs;
+            cout << " Enter the exponent  " << endl;
+            cin >> ex;
+            cout << " The Result is " << power(bs, ex) << endl;
+        }
+        else if (choice == 7)
+        {
+            cout << " Enter The Number to Find Digits Sum " << endl;
+            cin >> digits;
+            cout << " The Sum Of the digits is " << sumofdigits(digits) << endl;
+        }
+        else if (choice == 8)
+        {
+            cout << "Thank you !\n";
         }
         else
         {
             cout << "Invalid option.\n";
         }
 
-    } while (choice != 6);
+    } while (choice != 8);
 
     for (int i = 0; i < studentCount; ++i)
         delete students[i];

@@ -5,18 +5,20 @@ using namespace std;
 
 int main()
 {
-    ofstream input;
-    input.open("/home/muhib009/Desktop/new", ios::out);
-    if (!input)
+    ifstream a;
+    a.open("/home/muhib009/Desktop/newfile.dat", ios::in);
+    if (!a)
     {
-        cout << "Error" << endl;
+        cout << "error opening file" << endl;
     }
     else
     {
-        cout << " Data written successcully\n";
-        input << " Hello My name is Mujeeb\n";
-        input << " Where Are you yums\n";
-        input.close();
+        string line;
+        while ((getline(a, line)))
+        {
+            cout << line << endl;
+        }
     }
+    a.close();
     return 0;
 }

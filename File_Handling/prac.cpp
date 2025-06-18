@@ -18,7 +18,7 @@ int main()
         string line;
         while (!input.eof())
         {
-            getline(input, line);
+            cin.getline(input, line);
             cout << line << endl;
         }
     }

@@ -26,7 +26,7 @@ public:
     Shape(int x = 0, int y = 0)
     {
         p = new Point(x, y);
-        cout << "Cons. of shape\n";
+        cout << "Cons. of shape\n";,
     }
     void setPoint(int x = 0, int y = 0)
     {
