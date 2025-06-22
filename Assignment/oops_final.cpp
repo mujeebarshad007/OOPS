@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+#include <cstring>
 class Person
 {
 protected:
@@ -11,7 +11,7 @@ public:
     Person(string n = "", int i = 0) : name(n), id(i) {}
     virtual ~Person() {}
 
-    int getId() const { return id; } // <-- Added getter for id
+    int getId() const { return id; }
 };
 
 class User : virtual public Person
