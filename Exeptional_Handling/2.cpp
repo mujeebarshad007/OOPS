@@ -18,7 +18,7 @@ int main()
     try
     {
         Test t;
-        throw 10;
+        throw t;
     }
     catch (int n)
     {
