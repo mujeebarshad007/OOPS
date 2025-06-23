@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 // exeption is always thrown when all the constructor or destructor of the object are called
 using namespace std;
 class Test
@@ -20,7 +21,7 @@ int main()
         Test t;
         throw t;
     }
-    catch (int n)
+    catch (exception &n)
     {
         cout << " Caught \n";
     }
